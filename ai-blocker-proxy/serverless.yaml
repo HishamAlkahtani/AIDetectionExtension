@@ -1,0 +1,15 @@
+
+service: ai-blocker-proxy
+
+provider:
+  name: aws
+  runtime: nodejs22.13
+  stage: dev
+  region: me-central-1
+
+functions:
+  app:
+    handler: index.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
