@@ -1,4 +1,5 @@
-// Deployed on AWS Lambda
+// Proxy for Sapling API
+// Deployed as AWS Lambda Function
 
 export const handler = async (event) => {
   try {
