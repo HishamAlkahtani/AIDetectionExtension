@@ -8,7 +8,7 @@ function getHumanReadableTextContent(element) {
 }
 
 async function getAiScore(text) {
-  let url /* = Link to API Proxy */;
+  let url /* = link to API Proxy */;
 
   try {
     const response = await fetch(url, {
@@ -63,6 +63,7 @@ function shouldBeChecked(element) {
 
 async function checkElementAndFlag(element) {
   if (!shouldBeChecked(element)) return;
+
   const text = getHumanReadableTextContent(element);
 
   const score = await getAiScore(text);
@@ -90,9 +91,14 @@ async function traverseAndCheckDocument(node) {
   }
 }
 
-function checkDocument() {
+async function checkDocument() {
+  if (!(await browser.storage.local.get("extensionEnabled")).extensionEnabled) {
+    return;
+  }
+
   const body = document.querySelector("body");
   traverseAndCheckDocument(body);
 }
 
 setInterval(checkDocument, 3000);
+
